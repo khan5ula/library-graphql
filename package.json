@@ -2,7 +2,8 @@
   "dependencies": {
     "@apollo/server": "^4.7.5",
     "graphql": "^16.7.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "prettier": "3.0.0"
