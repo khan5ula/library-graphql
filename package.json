@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@apollo/server": "^4.7.5",
+    "graphql": "^16.7.1",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "prettier": "3.0.0"
+  },
+  "name": "library-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
