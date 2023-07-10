@@ -152,6 +152,15 @@ const resolvers = {
           extensions: { code: 'BAD_USER_INPUT', invalidArgs: args.title },
         })
       }
+      if (!authors.find((author) => author.name === args.author)) {
+        const newAuthor = {
+          name: args.author,
+          id: uuid(),
+        }
+        console.log(JSON.stringify(newAuthor))
+        authors = authors.concat(newAuthor)
+      }
+
       const book = { ...args, id: uuid() }
       books = books.concat(book)
       return book
