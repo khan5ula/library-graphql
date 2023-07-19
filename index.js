@@ -53,7 +53,7 @@ const typeDefs = `
   type Query {
     bookCount: Int!
     authorCount: Int!
-    allBooks(author: String, genre: String): [Book!]
+    allBooks(author: String, genres: [String]): [Book!]
     allAuthors: [Author!]
     me: User
     allGenres: [String!]
@@ -98,8 +98,8 @@ const resolvers = {
         filteredBooks = filteredBooks.where('author').equals(author._id)
       }
 
-      if (args.genre) {
-        filteredBooks = filteredBooks.where('genres').in([args.genre])
+      if (args.genres) {
+        filteredBooks = filteredBooks.where('genres').in(args.genres)
       }
 
       const books = await filteredBooks.populate('author')
