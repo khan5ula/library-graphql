@@ -56,6 +56,7 @@ const typeDefs = `
     allBooks(author: String, genre: String): [Book!]
     allAuthors: [Author!]
     me: User
+    allGenres: [String!]
   }
 
   type Mutation {
@@ -124,6 +125,11 @@ const resolvers = {
     me: (root, args, context) => {
       return context.currentUser
     },
+
+    allGenres: async () => {
+      const genres = await Book.distinct('genres')
+      return genres
+    },
   },
 
   Mutation: {
@@ -137,9 +143,9 @@ const resolvers = {
         })
       }
 
-      const existingBook = await Book.find({ title: args.title })
+      const existingBook = await Book.findOne({ title: args.title })
 
-      if (existingBook.length > 0) {
+      if (existingBook) {
         throw new GraphQLError('Book title must be unique', {
           extensions: { code: 'BAD_USER_INPUT', invalidArgs: args.title },
         })
@@ -163,7 +169,7 @@ const resolvers = {
         }
       }
 
-      const book = new Book({ ...args, author: author.id })
+      const book = new Book({ ...args, author: author })
 
       try {
         await book.save()
@@ -171,7 +177,7 @@ const resolvers = {
         throw new GraphQLError('Saving book failed', {
           extensions: {
             code: 'BAD_USER_INPUT',
-            invalidArgs: args.name,
+            invalidArgs: args.title,
             error,
           },
         })
