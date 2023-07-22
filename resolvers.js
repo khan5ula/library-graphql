@@ -37,6 +37,7 @@ const resolvers = {
           const bookCount = await Book.countDocuments({ author: author._id })
           return {
             ...author.toObject(),
+            id: author._id.toString(),
             bookCount,
           }
         })
